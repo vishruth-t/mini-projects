@@ -15,6 +15,9 @@ Choose any options below by the number:
 2 - Record Income
 3 - Check Balance
 4 - Add/Remove Account
+
+
+
 """))
 
     if choice == 0:
@@ -85,3 +88,49 @@ Choose any options below by the number:
             df.to_csv("ledger.csv",index=False,header=False)
             account.to_csv("accounts.csv",index=False,header=True)
             break
+    
+    elif choice==3:
+        print("Available accounts")
+        for i in account:
+            print(f"{i} - {account.loc[0,i]}")
+        print()
+    
+    elif choice==4:
+        print("Current accounts: ")
+        while True:
+            for i in account:
+                print(f"{i} - {account.loc[0,i]}")
+            print()
+            
+            choice_a=input("Do you want to add(1), remove(2) or modify existing account(3)? or (0) to go back: ")
+            if choice_a == '0':
+                break
+
+            elif choice_a == '1':
+                acc_name=input("Enter the name of the account: ")
+
+                if acc_name in account:
+                    print("ERROR! Account already exists")
+                    print("Try again?")
+                    continue
+                
+                acc_bal=input("Enter the balance for this account: ")
+
+                account[f"{acc_name}"]=acc_bal
+                print(f"{acc_name} - {acc_bal}")
+                choice_con=input("Confirm changes? (1) - Yes, (2) - No")
+                if choice_con=='1':
+                    account.to_csv("accounts.csv",index=False,header=True)
+            elif choice_a == '2':
+                acc_name=input("Enter the name of the account: ")
+
+                if acc_name not in account:
+                    print("ERROR! Account does not exist")
+                    print("Try again?")
+                    continue
+                print(f"Are you sure to delete this account  {acc_name} - {account[acc_name]}")
+                choice_con=input("(1) - Yes, (2) - No: ")
+
+                account = account.drop(acc_name, axis=1)
+                account.to_csv("accounts.csv",index=False,header=True)
+                

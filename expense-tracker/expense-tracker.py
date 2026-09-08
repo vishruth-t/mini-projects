@@ -14,7 +14,8 @@ Choose any options below by the number:
 1 - Record expense
 2 - Record Income
 3 - Check Balance
-4 - Add/Remove Account
+4 - Check Transactions
+5 - Add/Remove Account
 
 
 
@@ -96,6 +97,13 @@ Choose any options below by the number:
         print()
     
     elif choice==4:
+        print("All transactions: ")
+        print(df)
+        for i in range(len(df)):
+            print(f"{account.iloc[i,0]} | {account.iloc[i,1]} | {account.iloc[i,2]} | {account.iloc[i,3]} | {account.iloc[i,4]} | {account.iloc[i,5]}")
+
+
+    elif choice==5:
         print("Current accounts: ")
         while True:
             for i in account:
